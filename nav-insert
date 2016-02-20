@@ -1,0 +1,3 @@
+//inserted the following after inc_0700/config_inc.php line 93 to include a link to the NEWS tab on the Nav
+
+$nav1['n_index.php'] = "News~Get all your news in one place!";
