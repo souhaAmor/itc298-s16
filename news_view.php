@@ -38,7 +38,7 @@ if(mysqli_num_rows($result) > 0)
 	echo '<div align="center">Sorry, there are no records that match this query</div>';
 }
     
-echo '<p><a href="news_list.php">BACK</a></p>';
+echo '<p><a href="n_index.php">BACK</a></p>';
 
 @mysqli_free_result($result);
 
