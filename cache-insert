@@ -1,0 +1,27 @@
+//I'm experimenting with a for-each loop and the diff_date function to try to time the session
+//I think this should go on the news_view page
+//here's what I have so far
+
+foreach($myNewsList as $mnl)
+
+	{//get date 
+	$datetime[$mnl] = new DateTime(date("h:i:s"));
+	
+	//set interval to 0 if first session
+	if ($mnl=1){$interval = new DateTime("0:0:0");} 
+	else { //set interval to difference between sessions
+	$interval = date_diff($datetime[$mnl],$datetime[$mnl-1]);
+	}
+	$hours   = $interval->format('%h'); 
+	$minutes = $interval->format('%i');
+	$seconds = $interval->format('%s');
+	$diffmin = ($hours * 60 + $minutes + $seconds/60);
+	
+		if ($diffmin>10)
+		{//create an instance of constructor if there are more than 10 minutes difference
+
+		$myNewsList = new Newslist();
+	
+		} //else
+		
+	}//end for each loop
