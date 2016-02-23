@@ -2,26 +2,46 @@
 //I think this should go on the news_view page
 //here's what I have so far
 
-foreach($myNewsList as $mnl)
-
-	{//get date 
-	$datetime[$mnl] = new DateTime(date("h:i:s"));
+if(isset($_GET['id']) && (int)$_GET['id'] > 0)
+	{//get data
+	$id = $_GET['id'];
+    
+    
+    $_SESSION['id'] = new FeedView($id);//set to array to test
+    
+    for each($_SESSION as $sir)
+        {//get date 
+        
+	       $datetime[$sir] = new DateTime(date("h:i:s"));
+        
+        //sets default to 20 min if first session 
+        
+        if ($sir=1){$interval = new DateTime("0:20:0");} 
+        
+        else {//determines if last session was more than 10 minutes ago
+	           $interval = date_diff($datetime[$mnl],$datetime[$mnl-1]);
+	           }
+	       $hours   = $interval->format('%h'); 
+	       $minutes = $interval->format('%i');
+	       $seconds = $interval->format('%s');
+	       $diffmin = ($hours * 60 + $minutes + $seconds/60);
 	
-	//set interval to 0 if first session
-	if ($mnl=1){$interval = new DateTime("0:0:0");} 
-	else { //set interval to difference between sessions
-	$interval = date_diff($datetime[$mnl],$datetime[$mnl-1]);
-	}
-	$hours   = $interval->format('%h'); 
-	$minutes = $interval->format('%i');
-	$seconds = $interval->format('%s');
-	$diffmin = ($hours * 60 + $minutes + $seconds/60);
+		      if ($diffmin>10)
+		      {//create an instance of constructor
+		      $myNewsList = new Newslist();
+              
 	
-		if ($diffmin>10)
-		{//create an instance of constructor if there are more than 10 minutes difference
-
-		$myNewsList = new Newslist();
-	
-		} //else
+		      } //if loop
 		
-	}//end for each loop
+        
+        
+        
+        }//for each loop
+    
+    
+    
+
+	}else
+	{//bad data, redirected
+    header('Location:index.php');
+	}
