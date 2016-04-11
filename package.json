@@ -1,0 +1,20 @@
+{
+  "name": "first-app",
+  "version": "1.0.0",
+  "description": "A simple routing example",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/souhaAmor/itc298-s16.git"
+  },
+  "author": "souha amor",
+ 
+ 
+}
