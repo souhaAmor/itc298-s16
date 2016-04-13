@@ -18,10 +18,9 @@ function serveStaticFile(res, path, contentType, responseCode) {
 http.createServer(function(req,res){
         // normalize url by removing querystring, optional
         // trailing slash, and making lowercase
-        var path = req.url.replace(/\/?(?:\?.*)?$/, '')
-                .toLowerCase();
+        var path = req.url.toLowerCase();
         switch(path) {
-                case '':
+                case '/':
                         serveStaticFile(res, '/public/home.html', 'text/html');
                         break;
                 case '/about':
