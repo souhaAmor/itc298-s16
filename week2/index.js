@@ -21,15 +21,15 @@ app.get('/', function (req, res) {
   
     var tasks =["homeworks","going out", "meetup"];
     var description = ["doing HW2 ","going to the mall with friends","attend the js meetup"];
-    var date = ["04/17/2016","04/20/2016","05/05/2016"];
+   
     
    
     for (var i=0; i<tasks.length; i++){
         if (req.body.task== tasks[i]){
-            var result = "You searched for : " +req.body.task+ "<br>" +tasks[i] + "<br>" + description[i] + "<br>" +date[i] +'<br><a href="/">Back</a>';
+            var result = "You searched for : " +req.body.task+ "<br>"  + description[i] ;
             break;
         }else{
-            result = "You searched for : " +req.body.task+ "<br>" +"No such a task" +'<br><a href="/">Back</a>';
+            result = "You searched for : " +req.body.task+ "<br>" +"No such a task";
         }
         
     }
