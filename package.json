@@ -1,12 +1,11 @@
 {
   "name": "first-app",
   "version": "1.0.0",
-  "description": "A simple routing example",
   "main": "index.js",
   "dependencies": {
-    "body-parser": "^1.15.0",
-    "express": "^4.13.4"
-    "express-handlebars":"^3.0.0"
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "express-handlebars": "^3.0.0"
   },
   "scripts": {
     "test": "node index.js"
