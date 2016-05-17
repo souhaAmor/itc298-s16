@@ -8,6 +8,7 @@ var task = require("./lib/task.js");
 app.set('port', process.env.PORT || 3000);
 app.use(express.static('public'));
 app.use(require("body-parser").urlencoded({extended: true}));
+app.use('/api', require('cors')());
 
 // set template engine
 var handlebars = require('express-handlebars').create({defaultLayout: 'main', extname: '.hbs' });
