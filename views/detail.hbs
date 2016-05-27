@@ -2,6 +2,7 @@
 <form  method="POST" action="/add" >
     <input type="text" name="task" placeholder="task" value="{{task.task}}"/>
     <input type="text" name="description" placeholder="description" value="{{task.description}}" />
+      <input type="hidden" name="id" value="{{task.id}}" />
    <button>{{#if task}}Update{{else}}Add{{/if}}</button>
     <button>Delete</button>  
 </form>
