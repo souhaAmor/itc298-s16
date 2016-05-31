@@ -33,7 +33,7 @@
     <p> You are searching for :<b> {{search}}</b></p>
     <b>Total:{{mydata.length}} </b>
     <ul>
-      <li ng-repeat="t in mydata" ng-click="myMethod(t)">
+      <li ng-repeat="t in mydata| filter : search" ng-click="myMethod(t)">
         {{ t.task}}
         <p ng-style="{ 'display': (t == selectedItem) ? 'block' : 'none' }">{{details}} </p>
       </li>
