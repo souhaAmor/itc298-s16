@@ -1,42 +1,93 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
 <script>
-  var listApp = angular.module('listApp', []);
-  listApp.controller('ListController', ['$scope', function($scope) {
-    $scope.mydata = [{
-        task: 'Book Flight',
-        date: '05/30/2016'
-      }, {
-        task: 'Haircut',
-        date: '06/02/2016'
-      }, {
-        task: 'Meeting with Souha',
-        date: '06/05/2016'
-      }
+var listApp = angular.module('listApp',[]);
+listApp.controller('ListController', function($scope,$http) {
+  
+  
+  $http.get('/api/tasks')
+      .then(function successCallback(response) {
+            $scope.tasks = response.data;
+      }, function errorCallback(response) {
+        console.log('Error: ' + response.data);
+      });
+  
 
-    ];
-    $scope.details = "";
-    // sample method
-    $scope.myMethod = function(t) {
-      $scope.details = t.date;
-      $scope.selectedItem = t;
-    };
-  }]);
+  
+
+
+
+$scope.details="";
+ $scope.hideform = true;
+  $scope.hideformadd = true; 
+ 
+   // reset form
+      $scope.showDetail = function(item) { 
+       
+        $scope.hideform = (item == $scope.task) ? !$scope.hideform : false; 
+        $scope.selectedItem = item;
+        
+      };
+ 
+   
+      
+      
+      $scope.addUpdateTask = function() { 
+        $http.post('/api/add', $scope.task)
+        .then(function successCallback(response) {
+            $scope.result = response.data;
+        }, function errorCallback(response) {
+          console.log('Error: ' + response.data);
+        });
+      };
+      
+          $scope.removeTask = function() { 
+        $http.post('/api/delete', $scope.task)
+        .then(function successCallback(response) {
+            $scope.result = response.data;
+        }, function errorCallback(response) {
+          console.log('Error: ' + response.data);
+        });
+      };
+ 
+
+});
 </script>
 
 <!--View template. Add necessary Angular directives -->
-
 <body ng-app="listApp">
-  <div ng-controller="ListController">
-    <p>Search :
-      <input type="text" ng-model="search">
-    </p>
-    <p> You are searching for :<b> {{search}}</b></p>
-    <b>Total:{{mydata.length}} </b>
-    <ul>
-      <li ng-repeat="t in mydata| filter : search" ng-click="myMethod(t)">
-        {{ t.task}}
-        <p ng-style="{ 'display': (t == selectedItem) ? 'block' : 'none' }">{{details}} </p>
-      </li>
-    </ul>
-  </div>
+<div ng-controller="ListController">
+<p>Search : <input type="text"  ng-model="search"> <button ng-click="newTask()">New</button></p>
+<p> You are searching for :<b> {{search}}</b></p>
+
+<b>Total:{{tasks.length}} </b>
+<form ng-hide="hideformadd">
+  <h3 >Add New Item:</h3>
+  <h3 ng-bind="result"></h3>
+    <input type="text" placeholder="task" ng-model="task.task">
+    <input type="text" placeholder="description" ng-model="task.description">
+    
+    <input type="hidden" name="id">
+    <br><button ng-click="addUpdateTask()">Save</button></p>
+  </span> 
+  </form>
+  
+<ul>
+  <li ng-repeat="t in tasks | filter : search" ng-click="showDetail(t)">
+    {{ t.task}}
+   <form ng-hide="hideform"  ng-style="{ 'display': (t == selectedItem) ? 'block' : 'none' }">
+
+  <h3 ng-bind="result"></h3>
+    <input type="text" placeholder="task" ng-model="t.task">
+    <input type="text" placeholder="description" ng-model="t.description">
+    
+    <input type="hidden" name="id">
+    <br><button ng-click="addUpdateTask()">Save</button>
+   <br><button ng-click="removeTask()">Delete</button>
+  </span> 
+  </form>
+  
+  </li>
+</ul>
+  
+</div>
 </body>
